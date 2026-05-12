@@ -1,5 +1,3 @@
-
-
 import { EventEmitter } from 'events';
 
 EventEmitter.setMaxListeners(0);
@@ -274,11 +272,11 @@ async function connectionUpdate(update) {
     if (global.db.data == null) loadDatabase()
     if (connection === "open") {
         const deviceName = os.hostname();
-        const message = `• *معلومات*: البوت نشط\n
-◦ *المنصة*: ${os.platform()} ${os.release()}
-◦ *جهاز*: ${deviceName}
-◦ *اسم البوت*: ${global.namebot}
-◦ *الوقت المتصل*: ${new Date().toLocaleString()}\n\n قناتي على الواتساب للمزيد من المعلومات \nhttps://whatsapp.com/channel/0029VaX4b6J7DAWqt3Hhu01A`;
+        const message = `*Information*: Bot is active\n
+*Platform*: ${os.platform()} ${os.release()}
+*Device*: ${deviceName}
+*Bot Name*: ${global.namebot}
+*Connected Time*: ${new Date().toLocaleString()}\n\n My WhatsApp channel for more information\nhttps://whatsapp.com/channel/0029VajvgNv30LKQQnapiq02`;
         
         this.sendMessage(global.nomerown + `@s.whatsapp.net`, {
             text: message
@@ -286,7 +284,7 @@ async function connectionUpdate(update) {
         console.log(chalk.bgGreen(chalk.white('The bot is already active')));
     }
     if (connection == 'close') {
-        console.log(chalk.yellow(`📡 Connection is lost from the server, delete sessions and retake immediately ⚠️`));
+        console.log(chalk.yellow(`📡 Connection lost from the server, delete sessions and reconnect immediately ⚠️`));
     }
 }
 
@@ -321,20 +319,20 @@ global.reloadHandler = async function(restatConn) {
         conn.ev.off('connection.update', conn.connectionUpdate)
         conn.ev.off('creds.update', conn.credsUpdate)
     }
-    conn.welcome = 'مرحبا بك في أقوى مجموعة لبوتات الواتساب الرجاء قراءة قوانين المجموعة حتى لا يتم طردك  ، سيلانا اول بوت واتساب في الوطن العربي \n\n welcome to the groupe please read the rules of the group\n\n\n @subject, @user\n'
-    conn.bye = '\n  مع السلامة  اتمنى ألا تعود الى هـــــــــنا \n@user 👋'
-    conn.spromote = '@user *يرقي* إلى المشرف '
-    conn.sdemote = '@user *خفض الرتبة* من المشرف'
-    conn.sDesc = 'تم تغيير الوصف إلى \n@desc'
-    conn.sSubject = 'تم تغيير اسم المجموعة إلى \n@subject'
-    conn.sIcon = 'تم تغيير الصورة الجماعية!'
-    conn.sRevoke = 'تم تغيير رابط المجموعة إلى \n@revoke'
-    conn.sAnnounceOn = 'تم إغلاق المجموعة!\الآن يمكن للمسؤولين فقط إرسال الرسائل.'
-    conn.sAnnounceOff = 'المجموعة مفتوحة!\nالآن يمكن لجميع المشاركين إرسال الرسائل.'
-    conn.sRestrictOn = 'تم تغيير تعديل معلومات المجموعة إلى المسؤول فقط!'
-    conn.sRestrictOff = 'تم تغيير تعديل معلومات المجموعة لجميع المشاركين!'
+    conn.welcome = 'Welcome to the group, please read the group rules\n\n\n @subject, @user\n'
+conn.bye = '\n Goodbye, I hope you never come back here again \n@user 👋'
+conn.spromote = '@user *has been promoted* to admin'
+conn.sdemote = '@user *has been demoted* from admin'
+conn.sDesc = 'The description has been changed to\n@desc'
+conn.sSubject = 'The group name has been changed to\n@subject'
+conn.sIcon = 'The group picture has been changed!'
+conn.sRevoke = 'The group link has been changed to\n@revoke'
+conn.sAnnounceOn = 'The group has been closed!\nNow only admins can send messages.'
+conn.sAnnounceOff = 'The group is open!\nNow all participants can send messages.'
+conn.sRestrictOn = 'Group info editing has been restricted to admins only!'
+conn.sRestrictOff = 'Group info editing is now available for all participants!'
 
-    conn.handler = handler.handler.bind(global.conn)
+conn.handler = handler.handler.bind(global.conn)
     conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
     conn.groupsUpdate = handler.groupsUpdate.bind(global.conn)
     conn.pollUpdate = handler.pollUpdate.bind(global.conn);
