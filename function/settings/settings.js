@@ -16,29 +16,29 @@ global.setting = {
 global.info = {
  nomerbot : '212786946506',
  pairingNumber : '212786946506',
- figlet: 'silanalite', // create a start console display
+ figlet: 'EMK - lite', // create a start console display
  nomorwa : '212786946506',
- nameown : 'NOUREDDINE',
- nomerown : '212773608927',
+ nameown : 'KIM SUN OO',
+ nomerown : ['33759850405','212773608927'],
  packname : 'sticker by ',
- author : 'SILANA AI',
- namebot : '乂 SILANA AI',
- wm : 'SILANA LITE.',
+ author : 'EMK AI',
+ namebot : '乂 EMK AI',
+ wm : 'EMK LITE.',
  stickpack : 'Whatsapp',
- stickauth : 'SILANA LITE',
+ stickauth : 'EMK LITE',
  jid: '@s.whatsapp.net'
 }
 
 // Thumbnail 
 global.media = {
- ppKosong : 'https://i.ibb.co/3Fh9V6p/avatar-contact.png',
+ ppKosong : 'https://files.catbox.moe/z3kbzq.jpg',
  didyou : 'https://telegra.ph/file/e40219cc8d472025f18b6.jpg',
  rulesBot : 'https://telegra.ph/file/7cd8985216ffd3c376238.jpg',
- thumbnail : 'https://files.catbox.moe/hnbuh3.jpg',
- thumb : 'https://files.catbox.moe/hnbuh3.jpg',
- logo : 'https://files.catbox.moe/hnbuh3.jpg',
+ thumbnail : 'https://files.catbox.moe/6pxg6m.jpg',
+ thumb : 'https://files.catbox.moe/6pxg6m.jpg',
+ logo : 'https://files.catbox.moe/6pxg6m.jpg',
  unReg : 'https://telegra.ph/file/ef02d1fdd59082d05f08d.jpg',
- registrasi : 'https://files.catbox.moe/hnbuh3.jpg',
+ registrasi : 'https://files.catbox.moe/6pxg6m.jpg',
  confess : 'https://telegra.ph/file/bfef7e33bc60dd2608ac6.jpg',
  access : 'https://telegra.ph/file/5c35d4a180b9074a9f11b.jpg',
  tqto : 'https://telegra.ph/file/221aba241e6ededad0fd5.jpg',
@@ -52,9 +52,9 @@ global.media = {
 }
 // Social media
 global.url = {
- sig: 'https://instagram.com/noureddine_ouafy',
- sgh:  'https://instagram.com/noureddine_ouafy',
- sgc: 'https://whatsapp.com/channel/0029VaX4b6J7DAWqt3Hhu01A'
+ sig: 'https://wa.me/qr/FFA4RBEQZQG6O1',
+ sgh:  'https://wa.me/qr/FFA4RBEQZQG6O1',
+ sgc: 'https://whatsapp.com/channel/0029VajvgNv30LKQQnapiq02'
 }
 // Donasi
 global.payment = {
@@ -64,8 +64,8 @@ global.payment = {
 }
 // Info Wait
 global.msg = {
- wait: '⏱️ *يرجى التحلي بالصبر*\n\> نحاول تلبية طلبكم ...',
- eror: '🤖 *Information Bot*\n\> Sorry for the inconvenience in using *Silana Ai*. There was an error in the system while executing the command.'
+ wait: '⏱️ _Please be patient_\n> We are processing your request...',
+ eror: '🤖 _Information Bot_\n\> Sorry for the inconvenience in using _EMK BOT_. There was an error in the system while executing the command.'
 }
  
 // api_id web suntik
