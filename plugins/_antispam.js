@@ -12,6 +12,7 @@ export async function before(m, { isAdmin, isOwner, isBotAdmin }) {
     m.mtype === "reactionMessage"
   )
     return;
+
   if (
     !m.msg ||
     !m.message ||
@@ -22,36 +23,71 @@ export async function before(m, { isAdmin, isOwner, isBotAdmin }) {
     return;
 
   this.spam = this.spam || {};
-  this.spam[m.sender] = this.spam[m.sender] || { count: 0, lastspam: 0 };
+  this.spam[m.sender] = this.spam[m.sender] || {
+    count: 0,
+    lastspam: 0,
+  };
+
   const now = performance.now();
-  const timeDifference = now - this.spam[m.sender].lastspam;
+
+  const timeDifference =
+    now - this.spam[m.sender].lastspam;
 
   if (timeDifference < 5000) {
+
     this.spam[m.sender].count++;
-    if (this.spam[m.sender].count >= 4 && !isOwner && !isAdmin) {
+
+    if (
+      this.spam[m.sender].count >= 4 &&
+      !isOwner &&
+      !isAdmin
+    ) {
+
       users[m.sender].banned = true;
+
       this.spam[m.sender].lastspam = now + 5000;
+
       const remainingCooldown = Math.ceil(
         (this.spam[m.sender].lastspam - now) / 1000,
       );
 
       setTimeout(() => {
+
         users[m.sender].banned = false;
+
         this.spam[m.sender].count = 0;
 
-        conn.sendMessage(m.chat, { react: { text: "✅", key: m.key } });
+        conn.sendMessage(
+          m.chat,
+          {
+            react: {
+              text: "✅",
+              key: m.key
+            }
+          }
+        );
+
       }, 10000);
 
       const message =
         m.mtype
           .replace(/message$/i, "")
-          .replace("audio", m.msg.ptt ? "PTT" : "audio")
-          .replace(/^./, (v) => v.toUpperCase()) || "Unknown";
+          .replace(
+            "audio",
+            m.msg.ptt ? "PTT" : "audio"
+          )
+          .replace(
+            /^./,
+            (v) => v.toUpperCase()
+          ) || "Unknown";
+
       return m.reply(
-        "⚠️ لقد تم منعك من استخدام البوت المرجو الانتظار بعد 10 ثواني..",
+        "⚠️ You have been temporarily blocked from using the bot. Please wait 10 seconds."
       );
     }
+
   } else {
+
     this.spam[m.sender].count = 0;
   }
 
