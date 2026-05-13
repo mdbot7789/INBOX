@@ -7,21 +7,22 @@ import speed from "performance-now";
 let handler = (m) => m;
 
 handler.all = async function (m) {
-  let name = await conn.getName(m.sender);
-
-  let pp =
-    "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg";
-
-  let logo = "https://files.catbox.moe/6pxg6m.jpg";
-
-  let sig = "https://api.whatsapp.com/send?phone=212773608927";
-
-  let namebot = "EMK";
 
   try {
-  } catch (e) {
-    console.error(e);
-  } finally {
+
+    let name = await conn.getName(m.sender);
+
+    let pp =
+      "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg";
+
+    let logo =
+      "https://files.catbox.moe/6pxg6m.jpg";
+
+    let sig =
+      "https://api.whatsapp.com/send?phone=212773608927";
+
+    let namebot = "EMK";
+
     global.emror = logo;
 
     global.doc = pickRandom([
@@ -31,21 +32,39 @@ handler.all = async function (m) {
       "application/pdf",
     ]);
 
-    global.fsizedoc = pickRandom([2000, 3000, 2023000, 2024000]);
+    global.fsizedoc = pickRandom([
+      2000,
+      3000,
+      2023000,
+      2024000,
+    ]);
 
-    global.axios = (await import("axios")).default;
-    global.fetch = (await import("node-fetch")).default;
-    global.cheerio = (await import("cheerio")).default;
-    global.fs = (await import("fs")).default;
+    global.axios =
+      (await import("axios")).default;
+
+    global.fetch =
+      (await import("node-fetch")).default;
+
+    global.cheerio =
+      (await import("cheerio")).default;
+
+    global.fs =
+      (await import("fs")).default;
 
     let timestamp = speed();
-    let latensi = speed() - timestamp;
-    let ms = await latensi.toFixed(4);
+
+    let latensi =
+      speed() - timestamp;
+
+    let ms =
+      await latensi.toFixed(4);
 
     global.kontak2 = [
       [
         owner[0],
-        await conn.getName(owner[0] + "@s.whatsapp.net"),
+        await conn.getName(
+          owner[0] + "@s.whatsapp.net"
+        ),
         "EMK AI",
         "https://whatsapp.com",
         true,
@@ -58,7 +77,8 @@ handler.all = async function (m) {
         participant: m.sender,
         ...(m.chat
           ? {
-              remoteJid: "status@broadcast",
+              remoteJid:
+                "status@broadcast",
             }
           : {}),
       },
@@ -79,8 +99,10 @@ END:VCARD`,
 
     global.fVerif = {
       key: {
-        participant: "0@s.whatsapp.net",
-        remoteJid: "0@s.whatsapp.net",
+        participant:
+          "0@s.whatsapp.net",
+        remoteJid:
+          "0@s.whatsapp.net",
       },
 
       message: {
@@ -91,6 +113,7 @@ END:VCARD`,
     global.ephemeral = "86400";
 
     global.ucapan = ucapan();
+
     global.botdate = date();
 
     global.adReply = {
@@ -99,8 +122,11 @@ END:VCARD`,
         forwardingScore: 1,
 
         forwardedNewsletterMessageInfo: {
-          newsletterJid: "120363318148683520@newsletter",
+          newsletterJid:
+            "120363318148683520@newsletter",
+
           serverMessageId: 103,
+
           newsletterName: `EMK`,
         },
 
@@ -112,8 +138,6 @@ END:VCARD`,
           renderLargerThumbnail: false,
           showAdAttribution: false,
           sourceUrl: sig,
-          thumbnail: await (await fetch(logo)).buffer(),
-          jpegThumbnail: await (await fetch(logo)).buffer(),
         },
       },
     };
@@ -128,30 +152,39 @@ END:VCARD`,
           renderLargerThumbnail: false,
           showAdAttribution: false,
           sourceUrl: sig,
-          thumbnail: await (await fetch(logo)).buffer(),
-          jpegThumbnail: await (await fetch(logo)).buffer(),
         },
       },
     };
+
+  } catch (e) {
+
+    console.error(
+      "Allfake Error:",
+      e
+    )
   }
 };
 
 export default handler;
 
 function date() {
-  let d = new Date(new Date() + 3600000);
+
+  let d =
+    new Date(new Date() + 3600000);
 
   let locale = "id";
 
-  let week = d.toLocaleDateString(locale, {
-    weekday: "long",
-  });
+  let week =
+    d.toLocaleDateString(locale, {
+      weekday: "long",
+    });
 
-  let date = d.toLocaleDateString(locale, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  let date =
+    d.toLocaleDateString(locale, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
 
   return `${week}, ${date}`;
 }
@@ -161,5 +194,9 @@ function ucapan() {
 }
 
 function pickRandom(list) {
-  return list[Math.floor(list.length * Math.random())];
+  return list[
+    Math.floor(
+      list.length * Math.random()
+    )
+  ];
 }
