@@ -270,13 +270,21 @@ async function connectionUpdate(update) {
         global.timestamp.connect = new Date
     }
     if (global.db.data == null) loadDatabase()
-    if (connection === "open") {
-        const deviceName = os.hostname();
-        const message = `*Information*: Bot is active\n
-*Platform*: ${os.platform()} ${os.release()}
-*Device*: ${deviceName}
-*Bot Name*: ${global.namebot}
-*Connected Time*: ${new Date().toLocaleString()}\n\n My WhatsApp channel for more information\nhttps://whatsapp.com/channel/0029VajvgNv30LKQQnapiq02`;
+
+if (connection === "open") {
+
+    const deviceName = os.hostname();
+
+    const message = `• _INFORMATION : THE BOT IS ACTIVE_
+
+◦ _PLATFORM : ${os.platform()} ${os.release()}_
+◦ _DEVICE : ${deviceName}_
+◦  _BOT NAME : ${global.namebot}_
+◦ _CONNECTED TIME : ${new Date().toLocaleString()}_
+
+> MY WHATSAPP CHANNEL FOR MORE INFORMATION:
+https://whatsapp.com/channel/0029VajvgNv30LKQQnapiq02`;
+}
         
         this.sendMessage(global.nomerown + `@s.whatsapp.net`, {
             text: message
@@ -284,7 +292,7 @@ async function connectionUpdate(update) {
         console.log(chalk.bgGreen(chalk.white('The bot is already active')));
     }
     if (connection == 'close') {
-        console.log(chalk.yellow(`📡 Connection lost from the server, delete sessions and reconnect immediately ⚠️`));
+        console.log(chalk.yellow(`📡 Connection is lost from the server, delete sessions and retake immediately ⚠️`));
     }
 }
 
@@ -319,20 +327,20 @@ global.reloadHandler = async function(restatConn) {
         conn.ev.off('connection.update', conn.connectionUpdate)
         conn.ev.off('creds.update', conn.credsUpdate)
     }
-    conn.welcome = 'Welcome to the group, please read the group rules\n\n\n @subject, @user\n'
+    conn.welcome = 'Welcome to the group, please read the group rules.\n\n\n @subject, @user\n'
 conn.bye = '\n Goodbye, I hope you never come back here again \n@user 👋'
 conn.spromote = '@user *has been promoted* to admin'
 conn.sdemote = '@user *has been demoted* from admin'
-conn.sDesc = 'The description has been changed to\n@desc'
-conn.sSubject = 'The group name has been changed to\n@subject'
+conn.sDesc = 'The group description has been changed to:\n@desc'
+conn.sSubject = 'The group name has been changed to:\n@subject'
 conn.sIcon = 'The group picture has been changed!'
-conn.sRevoke = 'The group link has been changed to\n@revoke'
+conn.sRevoke = 'The group link has been changed to:\n@revoke'
 conn.sAnnounceOn = 'The group has been closed!\nNow only admins can send messages.'
 conn.sAnnounceOff = 'The group is open!\nNow all participants can send messages.'
-conn.sRestrictOn = 'Group info editing has been restricted to admins only!'
-conn.sRestrictOff = 'Group info editing is now available for all participants!'
-
-conn.handler = handler.handler.bind(global.conn)
+conn.sRestrictOn = 'Editing group info has been restricted to admins only!'
+conn.sRestrictOff = 'Editing group info is now allowed for all participants!'
+  
+    conn.handler = handler.handler.bind(global.conn)
     conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
     conn.groupsUpdate = handler.groupsUpdate.bind(global.conn)
     conn.pollUpdate = handler.pollUpdate.bind(global.conn);
