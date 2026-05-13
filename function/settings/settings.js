@@ -31,7 +31,7 @@ global.info = {
 
 // Thumbnail 
 global.media = {
- ppKosong : 'https://files.catbox.moe/z3kbzq.jpg',
+ ppKosong : 'https://i.ibb.co/rRKc3rb1/7601f57a17473be024d6638225cd2d90.jpg',
  didyou : 'https://telegra.ph/file/e40219cc8d472025f18b6.jpg',
  rulesBot : 'https://telegra.ph/file/7cd8985216ffd3c376238.jpg',
  thumbnail : 'https://files.catbox.moe/6pxg6m.jpg',
