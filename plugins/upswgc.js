@@ -2,6 +2,8 @@ import { prepareWAMessageMedia } from '@adiwajshing/baileys'
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
 
+    const targetGroup = '120363372717705714@g.us'
+
     if (!text && !m.quoted) {
         return m.reply(
             `Example:\n${usedPrefix + command} Hello\n\n` +
@@ -11,16 +13,15 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
     try {
 
-        // Text Status
         if (text) {
 
             await conn.relayMessage(
-                m.chat,
+                targetGroup,
                 {
                     groupStatusMessageV2: {
                         message: {
                             extendedTextMessage: {
-                                text
+                                text: text
                             }
                         }
                     }
@@ -28,14 +29,12 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 {}
             )
 
-            return m.reply('Text status uploaded successfully')
+            return m.reply('Text status sent')
         }
 
-        // Media Status
         if (m.quoted) {
 
             const mime = m.quoted.mimetype || ''
-
             const buffer = await m.quoted.download()
 
             if (!buffer) {
@@ -44,7 +43,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
             let media = {}
 
-            // Image
             if (/image/.test(mime)) {
 
                 media = await prepareWAMessageMedia(
@@ -57,7 +55,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 )
             }
 
-            // Video
             else if (/video/.test(mime)) {
 
                 media = await prepareWAMessageMedia(
@@ -70,7 +67,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 )
             }
 
-            // Audio
             else if (/audio/.test(mime)) {
 
                 media = await prepareWAMessageMedia(
@@ -85,14 +81,12 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 )
             }
 
-            // Unsupported
             else {
                 return m.reply('Unsupported media type')
             }
 
-            // Send Status
             await conn.relayMessage(
-                m.chat,
+                targetGroup,
                 {
                     groupStatusMessageV2: {
                         message: {
@@ -103,25 +97,24 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
                 {}
             )
 
-            return m.reply('Media status uploaded successfully')
+            return m.reply('Media status sent')
         }
 
     } catch (err) {
 
         console.error(err)
 
-        return m.reply('Failed to upload status')
+        return m.reply('Failed to send status')
     }
 }
 
 handler.command = /^upswgc$/i
 
 handler.owner = true
-
-handler.group = true
+handler.private = true
+handler.group = false
 
 handler.help = ['upswgc']
-
 handler.tags = ['owner']
 
 export default handler
