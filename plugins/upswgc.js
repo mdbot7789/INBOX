@@ -1,82 +1,123 @@
 // plugin by Const Offmon = Lana;
-// instagram.com/noureddine_ouafy
+// instagram.com/sunoovvv
 
 import { prepareWAMessageMedia } from '@adiwajshing/baileys'
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
+
+    const targetGroup = '120363372717705714@g.us'
+
     if (!text && !m.quoted) {
-        return m.reply(`Example: ${usedPrefix + command} <text>\nor reply to a photo/video/audio`)
+        return m.reply(
+            `Example:\n${usedPrefix + command} Hello\n\n` +
+            `or reply to image / video / audio`
+        )
     }
 
     try {
-        // TEXT ONLY
+
         if (text) {
+
             await conn.relayMessage(
-                m.chat,
+                targetGroup,
                 {
                     groupStatusMessageV2: {
-                        message: { conversation: text }
+                        message: {
+                            extendedTextMessage: {
+                                text: text
+                            }
+                        }
                     }
                 },
                 {}
             )
-            return m.reply("Done")
+
+            return m.reply('Text status sent')
         }
 
-        // MEDIA (IF QUOTED)
         if (m.quoted) {
+
             const mime = m.quoted.mimetype || ''
             const buffer = await m.quoted.download()
 
-            if (!buffer) return m.reply("No media available for upload")
+            if (!buffer) {
+                return m.reply('Failed to download media')
+            }
 
-            let media
+            let media = {}
 
             if (/image/.test(mime)) {
+
                 media = await prepareWAMessageMedia(
-                    { image: buffer },
-                    { upload: conn.waUploadToServer }
+                    {
+                        image: buffer
+                    },
+                    {
+                        upload: conn.waUploadToServer
+                    }
                 )
-            } else if (/video/.test(mime)) {
+            }
+
+            else if (/video/.test(mime)) {
+
                 media = await prepareWAMessageMedia(
-                    { video: buffer },
-                    { upload: conn.waUploadToServer }
+                    {
+                        video: buffer
+                    },
+                    {
+                        upload: conn.waUploadToServer
+                    }
                 )
-            } else if (/audio/.test(mime)) {
+            }
+
+            else if (/audio/.test(mime)) {
+
                 media = await prepareWAMessageMedia(
                     {
                         audio: buffer,
                         mimetype: 'audio/mpeg',
                         ptt: false
                     },
-                    { upload: conn.waUploadToServer }
+                    {
+                        upload: conn.waUploadToServer
+                    }
                 )
-            } else {
-                return m.reply("Unsupported media format")
+            }
+
+            else {
+                return m.reply('Unsupported media type')
             }
 
             await conn.relayMessage(
-                m.chat,
+                targetGroup,
                 {
                     groupStatusMessageV2: {
-                        message: media
+                        message: {
+                            ...media
+                        }
                     }
                 },
                 {}
             )
 
-            return m.reply("Done")
+            return m.reply('Media status sent')
         }
+
     } catch (err) {
+
         console.error(err)
-        m.reply("Failed to upload status")
+
+        return m.reply('Failed to send status')
     }
 }
 
 handler.command = /^upswgc$/i
+
 handler.owner = true
-handler.group = true
-handler.help = ["upswgc"]
-handler.tags = ["owner"]
+handler.private = true
+handler.group = false
+
+handler.help = ['upswgc']
+handler.tags = ['owner']
 
 export default handler
