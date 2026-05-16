@@ -62,112 +62,74 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
     })
 
   let isiMenu = []
-  let objekk = Object.keys(tagCount)
+let objekk = Object.keys(tagCount)
 
-  Object.entries(tagCount).map(([key, value]) =>
-    isiMenu.push({
-      header: `📂 ${key.toUpperCase()} MENU`,
-      title: `📌 View ${key} Commands`,
-      description: `Contains ${value} available features`,
-      id: ".menu " + key,
-    })
-  ).join()
+Object.entries(tagCount).map(([key, value]) =>
+  isiMenu.push({
+    header: `📂 ${key.toUpperCase()} MENU`,
+    title: `📌 View ${key} Commands`,
+    description: `Contains ${value} available features`,
+    id: ".menu " + key,
+  })
+).join();
 
-  const datas = {
-    title: "ℂ𝕃𝕀ℂ𝕂 ℍ𝔼ℝ𝔼 𝕋𝕆 𝕆ℙ𝔼ℕ 𝕄𝔼ℕ𝕌",
-    sections: [
-      {
-        title: "🤖 BOT SERVICES",
-        rows: [
-          {
-            header: "📋 MAIN MENU",
-            title: "Show All Bot Commands",
-            description: "Display every available command",
-            id: ".menu all",
-          }
-        ],
-      },
+const datas = {
+  title: "✨ CLICK HERE TO OPEN MENU",
+  sections: [
+    {
+      title: "🤖 BOT SERVICES",
+      highlight_label: "ALL FEATURES",
+      rows: [
+        {
+          header: "📋 MAIN MENU",
+          title: "Show All Bot Commands",
+          description: "Display every available command",
+          id: ".menu all",
+        }
+      ],
+    },
 
-      {
-        title: "📚 COMMAND CATEGORIES",
-        rows: [...isiMenu]
-      },
+    {
+      title: "📚 COMMAND CATEGORIES",
+      highlight_label: "COMMAND LIST",
+      rows: [...isiMenu]
+    },
 
-      {
-        title: "ℹ️ BOT INFORMATION",
-        rows: [
-          {
-            header: "📜 SCRIPT INFO",
-            title: "View Bot Script Information",
-            description: "Information about the bot script",
-            id: ".sc",
-          },
+    {
+      title: "ℹ️ BOT INFORMATION",
+      highlight_label: "INFORMATION CENTER",
+      rows: [
+        {
+          header: "📜 SCRIPT INFO",
+          title: "View Bot Script Information",
+          description: "Information about the bot script",
+          id: ".sc",
+        },
 
-          {
-            header: "👑 OWNER INFO",
-            title: "Contact Bot Owner",
-            description: "Information about the bot owner",
-            id: ".owner",
-          },
+        {
+          header: "👑 OWNER INFO",
+          title: "Contact Bot Owner",
+          description: "Information about the bot owner",
+          id: ".owner",
+        },
 
-          {
-            header: "⚡ FEATURES",
-            title: "Total Bot Features",
-            description: "See all available bot features",
-            id: ".totalfitur",
-          },
+        {
+          header: "⚡ FEATURES",
+          title: "Total Bot Features",
+          description: "See all available bot features",
+          id: ".totalfitur",
+        },
 
-          {
-            header: "🚀 BOT SPEED",
-            title: "Check Bot Speed",
-            description: "View bot response performance",
-            id: ".os",
-          }
-        ]
-      }
-    ]
-  }
-
-  let objek = Object.values(db?.data?.stats || {}).map(v => v.success || 0)
-
-  let totalHit = 0
-
-  for (let b of objek) {
-    totalHit += b
-  }
-
-  let docUrl = 'https://telegra.ph/file/e601537d315cbc69b856b.jpg'
-
-  let help = Object.values(global.plugins)
-    .filter(plugin => !plugin.disabled)
-    .map(plugin => {
-      return {
-        help: Array.isArray(plugin.help)
-          ? plugin.help
-          : [plugin.help],
-
-        tags: Array.isArray(plugin.tags)
-          ? plugin.tags
-          : [plugin.tags],
-
-        prefix: 'customPrefix' in plugin,
-        limit: plugin.limit,
-        premium: plugin.premium,
-        enabled: !plugin.disabled,
-      }
-    })
-
-  let data = db.data.users[m.sender]
-
-  let fitur = Object.values(plugins)
-    .filter(v => v.help)
-    .map(v => v.help)
-    .flat(1)
-
-  let tUser = Object.keys(db.data.users).length
-
-  let userReg = Object.values(global.db.data.users)
-    .filter(user => user.registered == true).length
+        {
+          header: "🚀 BOT SPEED",
+          title: "Check Bot Speed",
+          description: "View bot response performance",
+          id: ".os",
+        }
+      ]
+    }
+  ]
+}
 
   let headers = `_~HI 👋🏻 I'M EMK, YOUR INTELLIGENT WHATSAPP BOT~_\n\n`
 
@@ -228,13 +190,15 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 
     } else if (_menu.button) {
 
-      await conn.sendMessage(m.chat, {
-        text: headers,
-        footer: 'by kim sun oo',
-        title: 'MENU BOT',
-        buttonText: 'OPEN MENU',
-        sections: datas.sections
-      }, { quoted: m })
+      await conn.sendList(
+        m.chat,
+        'MENU BOT',
+        headers,
+        'OWNER KIM SUN OO',
+        'OPEN MENU',
+        datas.sections,
+        m
+      )
 
     }
 
@@ -243,8 +207,8 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
     const daftarHelp = tagHelpMapping[cmd]
       .map((helpItem, index) => {
 
-        const premiumSign = help[index]?.premium ? '🅟' : ''
-        const limitSign = help[index]?.limit ? 'Ⓛ' : ''
+        const premiumSign = '🅟'
+        const limitSign = 'Ⓛ'
 
         return `.${helpItem} ${premiumSign}${limitSign}`
 
@@ -262,13 +226,15 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
 
     if (_menu.button) {
 
-      await conn.sendMessage(m.chat, {
-        text: `OWNER KIM SUN OO\n\n${list2}`,
-        footer: global.wm || 'BOT',
-        title: 'MENU BOT',
-        buttonText: 'OPEN MENU',
-        sections: datas.sections
-      }, { quoted: m })
+      await conn.sendList(
+        m.chat,
+        'MENU BOT',
+        `OWNER KIM SUN OO\n\n${list2}`,
+        global.wm || 'BOT',
+        'OPEN MENU',
+        datas.sections,
+        m
+      )
 
     } else {
 
@@ -287,8 +253,8 @@ let handler = async (m, { conn, usedPrefix, command, args }) => {
         const daftarHelp = tagHelpMapping[tag]
           .map((helpItem, index) => {
 
-            const premiumSign = help[index]?.premium ? '🅟' : ''
-            const limitSign = help[index]?.limit ? 'Ⓛ' : ''
+            const premiumSign = '🅟'
+            const limitSign = 'Ⓛ'
 
             return `.${helpItem} ${premiumSign}${limitSign}`
 
@@ -308,13 +274,15 @@ ${allTagsAndHelp}`
 
     if (_menu.button) {
 
-      await conn.sendMessage(m.chat, {
-        text: `OWNER KIM SUN OO\n${all}`,
-        footer: 'instagram.com/sunoovvv',
-        title: 'ALL MENU',
-        buttonText: 'OPEN MENU',
-        sections: datas.sections
-      }, { quoted: m })
+      await conn.sendList(
+        m.chat,
+        'ALL MENU',
+        `OWNER KIM SUN OO\n${all}`,
+        'instagram.com/sunoovvv',
+        'OPEN MENU',
+        datas.sections,
+        m
+      )
 
     } else {
 
